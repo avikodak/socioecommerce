@@ -1,0 +1,19 @@
+/* 
+    Document   : common
+    Created on : May 15, 2012, 10:24:36 AM
+    Author     : kodakand
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body{
+    background: url("../images/beige001.jpeg");
+    background-repeat: repeat;
+}
+
+.rfloat{
+    float:right;
+}
+
+.lfloat{
+    float:left;
+}
