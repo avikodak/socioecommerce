@@ -5,35 +5,15 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-root { 
-    display: block;
+body{
+    background: url("../images/beige001.jpeg");
+    background-repeat: repeat;
 }
 
-/*
-a.button {
-   display: -moz-inline-stack;
-   display: inline-block;
-   width: 99px;
-   height: 38px;
-   background: url("http://dabuttonfactory.com/b.jpeg?t=SignIn&f=Calibri-Bold&ts=24&tc=ffffff00&tshs=1&tshc=22222200&it=jpeg&c=5&bgt=gradient&bgc=cc4677&ebgc=87226f&hp=20&vp=11") no-repeat;
-   line-height: 38px;
-   vertical-align: text-middle;
-   text-align: center;
-   color: #ffffff;
-   font-family: Calibri;
-   font-size: 24px;
-   font-weight: bold;
-   font-style: normal;
-   text-shadow: #222222 1px 1px 0;
-}
-a.button > span {
-   display: -moz-inline-block;
+.rfloat{
+    float:right;
 }
 
-LOGO
-
-<a href="http://cooltext.com"><img src="http://images.cooltext.com/2621342.gif" width="304" height="66" alt="SocioEcommerce
-" /></a>
-<br />Image by <a href="http://cooltext.com">Cool Text: Free Graphics Generator</a> - <a href="http://cooltext.com/Logo-Design?LogoID=678154617">Edit Image</a>
-*/
+.lfloat{
+    float:left;
+}

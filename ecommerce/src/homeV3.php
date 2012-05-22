@@ -1,165 +1,85 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
+<?php
+include '../php/IncludesPath.php';
+include_once $FB_GLOBAL_DEFINES;
+include $FB_PHP;
+include $FB_COMMON_FUNCTION;
+include $FBINTERESTS_Class;
+
+$code = $_GET['code'];
+$state = $_GET['state'];
+
+global $userLoggedIn;
+
+$config = array(
+    'appId' => $appId,
+    'secret' => $appSecret,
+);
+
+$facebook = new Facebook($config);
+
+$userId = $facebook->getUser();
+
+
+if (!$userId) {
+    echo "<meta http-equiv='refresh' content='0;url=" . $LOGIN_PAGE_NO_USER_URL . "'>";
+}
+
+
+try {
+    $userProfile = $facebook->api('/me', 'GET');
+
+    $userProfilePicArray = $facebook->api('/me?fields=picture', 'GET');
+
+    $userProfilePicUrl=$userProfilePicArray["picture"];
+
+    $userName = $userProfile['name'];
+
+    $userInterests = $facebook->api('/me/likes', 'GET');
+
+    //$user = new FBInterests_Class();
+
+    //$user->setDataArray($userInterests);
+
+    //$user->getAllInterests();
+    
+    $logoutconfig = array('next' => $LOGIN_PAGE_NO_USER_URL);
+
+    $logoutUrl = $facebook->getLogoutUrl($logoutconfig);
+    
+    
+} catch (FacebookApiException $e) {
+    error_log($e->getType());
+    error_log($e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-        <style>
-            .image{
-                display: inline-block;
-                max-height: 400px;
-                max-width: 200px;
-                padding: 0em 0.5em 3em 2em;
-            }
-            .imageContent{
-                display: inline-block;
-                height: 2em;
-                max-width: 200px;
-            }
-            .parnterDP{
-                display: inline-block;
-                position: absolute;
-                left: -130px;
-
-            }
-
-            .infiniteScrollBtn{
-                display: block;
-                width: 90%;
-                margin: 0 auto;
-                height: 3em;
-                background-color: #0b559b;
-            }
-            .center{
-                margin:auto;
-                padding: 0.5em;
-                width: 8em;
-            }
-            .fontColorWhite{
-                color: white;
-            }
-            .mediumSize{
-                font-size: 1.5em;
-            }
-            .images{
-                position:relative;
-            }
-            #content{
-                padding-left: 20px; 
-            }
-            .container {
-                margin: 0em auto;
-                background-color: #fff;
-                width:50em; 
-                height:auto;
-            }
-            #space{
-                margin-bottom: 1em;
-                visibility: hidden; 
-
-            }
-            body{
-                background: url("../images/beige001.jpeg");
-                background-repeat: repeat;
-            }
-            .login{
-                margin:0em auto 1.5em;
-                width:50em; 
-            }
-            #faceBookLogin{
-                background: url("../images/common/button_fb_bg.jpg") repeat-y scroll 0 0 #647BAF;
-            }
-        </style>
-        <script>
-            // Load the SDK Asynchronously
-            (function(d){
-                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement('script'); js.id = id; js.async = true;
-                js.src = "//connect.facebook.net/en_US/all.js";
-                ref.parentNode.insertBefore(js, ref);
-            }(document));
-
-            // Init the SDK upon load
-            window.fbAsyncInit = function() {
-                FB.Flash.hasMinVersion = function () { return false; };
-                FB.init({
-                    appId      : '384618301573901', // App ID
-                    // channelUrl : '//'+window.location.hostname+'/channel', // Path to your Channel File
-                    status     : true, // check login status
-                    cookie     : true, // enable cookies to allow the server to access the session
-                    xfbml      : true  // parse XFBML
-                });
-
-                // listen for and handle auth.statusChange events
-                FB.Event.subscribe('auth.statusChange', function(response) {
-                    if (response.authResponse) {
-                        // user has auth'd your app and is logged into Facebook
-                        FB.api('/me', function(response) {
-                            document.getElementById("fb_root").style.display='inline-block';
-                            document.getElementById("user_dp").innerHTML = '<img src="https://graph.facebook.com/' 
-                                + response.id + '/picture">' ;
-                            document.getElementById("username").innerHTML=response.name;
-                            document.getElementById("loginBox").style.display = 'none';
-                        });
-                        
-                        
-                        
-                    } else {
-                        // user has not auth'd your app, or is not logged into Facebook
-                        document.getElementById("fb_root").style.display='none';
-                        document.getElementById("loginBox").style.display = 'block';
-                        
-                        
-                    }
-                });
-
-                // respond to clicks on the login and logout links
-                document.getElementById('auth-loginlink').addEventListener('click', function(){
-                    FB.login();
-                });
-                document.getElementById('auth-logoutlink').addEventListener('click', function(){
-                    FB.logout();
-                }); 
-            } 
-        </script>
+        <title>SocioEcommerce</title>
+        <link type="text/css" href="../css/common.css" rel="Stylesheet" />
+        <link type="text/css" href="../css/homePage.css" rel="Stylesheet" />
+        <link type="text/css" href="../scripts/jquery-ui-1.8.17.custom/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="Stylesheet" />
+        <script type="text/javascript" src="../scripts/jquery-ui-1.8.17.custom/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="../scripts/jquery-ui-1.8.17.custom/js/jquery-ui-1.8.17.custom.min.js"></script>
+        <script type="text/javascript" src="../scripts/homePage.js"></script>
     </head>
     <body>
         <?php include "includes/header.php" ?>
-        <div id="loginBox" class="login">
-            <table>
-                <tr>
-                    <td colspan="2"> Login </td>
-                </tr>
-                <tr>
-                    <td><div><a href="#" id="auth-loginlink">
-                                <div class="fb-login-button">
-                                    Connect With Facebook
-                                </div>
-                            </a></div></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
         <div class="container">
-
-
             <div id="content">
-                <div id="space">ssad</div>
-                <div>
+                <div id="space">hidden</div>
+                <div class="mainContent" style="position:relative">
                     <div class="images">
-                        <div class="partner">
+                        <div class="partner" id="sample">
                             <div class="parnterDP"><img src="testImages/avikodak.jpg"/></div>
-                            <div class="imageRow" style="float:left">
+                            <div class="imageRow">
                                 <div class="image">
                                     <img src="testImages/97984519193236911_9887b6e140be.jpg"/>
                                     <div class="imageContent">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
                                     </div>
-
                                 </div>
                                 <div class="image">
                                     <img src="testImages/97984446707275179_08b6a957d27c.jpg"/>
@@ -220,7 +140,7 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-                <a href="" style="padding: 1.5em">
+                <a style="padding: 1.5em">
                     <div class="infiniteScrollBtn">
                         <div class="center fontColorWhite mediumSize">
                             Show More Posts

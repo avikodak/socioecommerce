@@ -9,8 +9,12 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <a style="padding: 1.5em">
+                <div class="infiniteScrollBtn">
+                    <div class="center fontColorWhite mediumSize">
+                        Show More Posts
+                    </div>
+                </div>
+            </a>
     </body>
 </html>

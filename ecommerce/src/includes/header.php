@@ -80,11 +80,11 @@
                         <li><a href=""><img src="../images/help_border.jpeg" /></a></li>
                         
                     </ul>
-                    <div id="fb_root" style="display: none">
-                        <div id="user_dp"></div>
-                        <div id="username"></div>
+                    <div id="fb_root">
+                        <div id="user_dp"><img class="fbProfilePic" src=<?php echo $userProfilePic?> /></div>
+                        <div id="username"><?php echo $userName?></div>
                         <div id="fblogout"> 
-                            <a href="#" id="auth-logoutlink">
+                            <a id="auth-logoutlink"  href=<?php echo $logoutUrl;?> >
                             <div class="fb-login-button">
                                     Logout
                             </div>
