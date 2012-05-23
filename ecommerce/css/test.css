@@ -9,14 +9,17 @@
 
 .partner{
  position: relative;  
- 
+ margin: 0 auto;
 }
+.centerImages{
+    
+ margin: 0 auto;   
+}
+
 .image{
     position:relative;
     float:left;
-    display:table-cell;
-   padding: 1em 0em 1em 1em;
-   margin: 0 auto;
+    padding: 1em 0em 1em 1em;
     
 }
 .imageContent{

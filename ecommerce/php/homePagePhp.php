@@ -37,18 +37,18 @@ function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $max
     $width = 0;
     $emValue = 16;
     $maxHeight = 0;
-    
-    for ($i = $marker;$i<count($arrayImageWithInfo); $i++) {
-        
+
+    for ($i = $marker; $i < count($arrayImageWithInfo); $i++) {
+
         if ($width + $arrayImageWithInfo[$i]["width"] + $emValue >= $maxWidth) {
-           // echo "width :".$width."MaxWidth :".$maxWidth;
-           // echo "TruthValue".($width<(0.5*$maxWidth))."\n\n<br/>";
-            if($width < (0.5*$maxWidth)){
-                $count=0;
-                $maxHeight=0;
+            // echo "width :".$width."MaxWidth :".$maxWidth;
+            // echo "TruthValue".($width<(0.5*$maxWidth))."\n\n<br/>";
+            if ($width < (0.5 * $maxWidth)) {
+                $count = 0;
+                $maxHeight = 0;
             }
-            $CountHeight[] = array("count" => $count, "maxHeight" => $maxHeight);
-            
+            $CountHeight[] = array("count" => $count, "maxHeight" => $maxHeight,"totalWidth"=>$width);
+
             return $CountHeight;
         }
 
@@ -71,29 +71,30 @@ function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $ma
 
     $maxImagesInRow = 2;
     $emValue = 16;
-    
+
     for ($i = $startCount; $i < count($arrayImageWithInfo);) {
-        
+
         $RowCountAndMaxHeightArray = getImageCountInARow($arrayImageWithInfo, 3, $i, $maxWidth);
         $rowCount = $RowCountAndMaxHeightArray[0]["count"];
-        if($rowCount==0){
+        if ($rowCount == 0) {
             $i++;
             continue;
         }
         $maxHeight = $RowCountAndMaxHeightArray[0]["maxHeight"];
-        
+        $totalWidth = $RowCountAndMaxHeightArray[0]["totalWidth"];
+
         echo '<div class="imageRow">';
-        
+        echo '<div class="centerImages" style="width:'.$totalWidth.'px">';
         for ($j = $i; $j - $i < $rowCount && $j < count($arrayImageWithInfo); $j++) {
             //$width = ($maxWidth - (($rowCount*$emValue)/$rowCount));
             $height = $maxHeight;
             if ($arrayImageWithInfo[$j]["height"] < $maxHeight) {
                 $height = $arrayImageWithInfo[$j]["height"];
             }
-            
-           createDivForImage($arrayImageWithInfo[$j]["width"], $height, $maxHeight, $emValue, $arrayImageWithInfo[$j]["url"]);
-        }
 
+            createDivForImage($arrayImageWithInfo[$j]["width"], $height, $maxHeight, $emValue, $arrayImageWithInfo[$j]["url"]);
+        }
+        echo '</div>';
         echo '</div>';
         $i = $j;
     }
