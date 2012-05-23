@@ -64,7 +64,7 @@ try {
     </head>
     <body>
         <?php
-        include "includes/header.php";
+        // include "includes/header.php";
         include_once '../php/homePagePhp.php';
         ?>
         <div class="container">
@@ -78,10 +78,12 @@ try {
                         if ($handle = opendir('/Applications/MAMP/htdocs/ecommerce/src/testImages')) {
                             /* This is the correct way to loop over the directory. */
                             while (false !== ($entry = readdir($handle))) {
-                                 
-                                    if ($entry != ".DS_Store" && $entry != "." && $entry != "..") {
-                                        $fileNames[] = "testImages/" . $entry;
-                                    }
+                                if (strpos($entry, ".php") || $entry=="thumbnails"||  is_dir($entry)) {
+                                    continue;
+                                }
+                                if ($entry != ".DS_Store" && $entry != "." && $entry != "..") {
+                                    $fileNames[] = "testImages/" . $entry;
+                                }
                             }
                             closedir($handle);
                         }
@@ -95,17 +97,17 @@ try {
                     $arrayImageWithInfo = getImagesInfo($arrayImages);
 
                     //Test ImagesInRow
-
-
-                   // $arrayImageWithInfo = sortArray($arrayImageWithInfo);
+                    //$arrayImageWithInfo = sortArray($arrayImageWithInfo);
 
                     $maxImagesInRow = 3;
 
                     $rowCount = 2;
 
-                    $maxWidth=580;
+                    $maxWidth = 730;
 
-                    getImagesDivForPartner($arrayImageWithInfo,112, $rowCount, $maxWidth);
+                    //print_r($arrayImageWithInfo);
+
+                   getImagesDivForPartner($arrayImageWithInfo, 0, $rowCount, $maxWidth);
                     ?>
                 </div>
             </div>

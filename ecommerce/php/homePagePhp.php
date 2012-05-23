@@ -1,33 +1,13 @@
 <?php
 
-function getMaxHeight($array, $row, $i) {
-
-    $maxHeight = 0;
-    for ($j = $i; $j <= $i + $row; $j++) {
-        if ($maxHeight < $array[$j]["height"]) {
-            $maxHeight = $array[$j]["height"];
-        }
-    }
-    return $maxHeight;
-}
-
-function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $maxWidth) {
-    $count = 0;
-    $width = 0;
-    for ($count = $marker;; $count++) {
-        $width = $width + $arrayImageWithInfo[$count]["width"];
-        if ($width >= $maxWidth) {
-           
-            return ($count - $marker);
-        }
-        if ($count - $marker < $maxImagesInRow) {
-            return $maxImagesInRow;
-        }
-    }
-}
-
 function getImagesInfo($arrayImages) {
     for ($i = 0; $i < count($arrayImages); $i++) {
+        if (strpos($arrayImages[$i], ".jpeg") || strpos($arrayImages[$i], ".jpeg")) {
+            $image = imagecreatefromjpeg($arrayImages[$i]);
+        }
+        if (strpos($arrayImages[$i], ".gif") || strpos($arrayImages[$i], ".gif")) {
+            $image = imagecreatefromgif($arrayImages[$i]);
+        }
         if (strpos($arrayImages[$i], ".jpg") || strpos($arrayImages[$i], ".jpg")) {
             $image = imagecreatefromjpeg($arrayImages[$i]);
         }
@@ -51,58 +31,84 @@ function sortArray($arrayImageWithInfo) {
     return $arrayImageWithInfo;
 }
 
-function getImagesDivForPartner($arrayImageWithInfo, $startCount,$rowCount, $maxWidth) {
-    ?>
-    <div class=partner>
-    <?php
-    $rowCount=getImageCountInARow($arrayImageWithInfo, 3, 0, $maxWidth);
-    $rowCount -= 1;
-    for ($i = $startCount; $i < count($arrayImageWithInfo); ) :
-
-        $rowCount=getImageCountInARow($arrayImageWithInfo, 2, $i, $maxWidth);
-        ?>
-            <div class="imageRow">
-            <?php
-            $maxHeight = getMaxHeight($arrayImageWithInfo, $rowCount, $i);
-            for ($j = $i; $j - $i <= $rowCount && $j < count($arrayImageWithInfo); $j++) :
-                ?>
-
-                    <div class="image" style="width:<?php echo $maxWidth / ($rowCount + 1) . "px" ?>;height:<?php echo ($maxHeight + 32) . "px" ?>">
-
-            <?php
-            $width = ($maxWidth / (($rowCount + 1)) - 32);
-
-            if ($arrayImageWithInfo[$j]["width"] < (($maxWidth / (($rowCount + 1))) - 32)) {
-                $width = $arrayImageWithInfo[$j]["width"];
+function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $maxWidth) {
+    $CountHeight = array();
+    $count = 0;
+    $width = 0;
+    $emValue = 16;
+    $maxHeight = 0;
+    
+    for ($i = $marker;$i<count($arrayImageWithInfo); $i++) {
+        
+        if ($width + $arrayImageWithInfo[$i]["width"] + $emValue >= $maxWidth) {
+           // echo "width :".$width."MaxWidth :".$maxWidth;
+           // echo "TruthValue".($width<(0.5*$maxWidth))."\n\n<br/>";
+            if($width < (0.5*$maxWidth)){
+                $count=0;
+                $maxHeight=0;
             }
-            ?>
-
-
-                        <?php
-                        $height = $maxHeight;
-                        if ($arrayImageWithInfo[$j]["height"] < $maxHeight) {
-                            $height = $arrayImageWithInfo[$j]["height"];
-                        }
-                        ?>
-                        <div style="background: url('../images/lgrey070.jpeg');background-repeat: repeat;height:<?php echo ($maxHeight) . "px" ?>;display:inline-block;width:<?php echo $maxWidth / ($rowCount + 1) . "px" ?>">
-                            <img alt="" class="Imgcenter" src="<?php echo $arrayImageWithInfo[$j]["url"] ?>" width="<?php echo $width . "px" ?>" height="<?php echo $height . "px" ?>" style="margin-top:<?php echo (($maxHeight / 2) - ($height / 2)) . "px" ?>" />
-                        </div>
-                        <div class="imageContent">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                        </div>
-                    </div>
-            <?php
-        endfor;
-
-        $i = $j;
-        if (!$rowCount) {
-            $rowCount=getImageCountInARow($arrayImageWithInfo, 3, 0, $maxWidth);
-            $rowCount;
+            $CountHeight[] = array("count" => $count, "maxHeight" => $maxHeight);
+            
+            return $CountHeight;
         }
-        ?>  
 
-            </div>
-            <?php endfor; ?>
+        $width = $width + $arrayImageWithInfo[$i]["width"] + $emValue;
+        if ($maxHeight < $arrayImageWithInfo[$i]["height"]) {
+            $maxHeight = $arrayImageWithInfo[$i]["height"];
+        }
+        $count++;
+        if ($i - $marker >= $maxImagesInRow) {
+            $CountHeight[] = array("count" => $maxImagesInRow, "maxHeight" => $maxHeight);
+            return $CountHeight;
+        }
+    }
+}
+
+function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $maxWidth) {
+
+
+    echo '<div class=partner>';
+
+    $maxImagesInRow = 2;
+    $emValue = 16;
+    
+    for ($i = $startCount; $i < count($arrayImageWithInfo);) {
+        
+        $RowCountAndMaxHeightArray = getImageCountInARow($arrayImageWithInfo, 3, $i, $maxWidth);
+        $rowCount = $RowCountAndMaxHeightArray[0]["count"];
+        if($rowCount==0){
+            $i++;
+            continue;
+        }
+        $maxHeight = $RowCountAndMaxHeightArray[0]["maxHeight"];
+        
+        echo '<div class="imageRow">';
+        
+        for ($j = $i; $j - $i < $rowCount && $j < count($arrayImageWithInfo); $j++) {
+            //$width = ($maxWidth - (($rowCount*$emValue)/$rowCount));
+            $height = $maxHeight;
+            if ($arrayImageWithInfo[$j]["height"] < $maxHeight) {
+                $height = $arrayImageWithInfo[$j]["height"];
+            }
+            
+           createDivForImage($arrayImageWithInfo[$j]["width"], $height, $maxHeight, $emValue, $arrayImageWithInfo[$j]["url"]);
+        }
+
+        echo '</div>';
+        $i = $j;
+    }
+    echo '</div>';
+}
+?>
+<?php
+
+function createDivForImage($width, $height, $maxHeight, $emValue, $url) { ?>
+    <div class="image" style="width:<?php echo $width . "px" ?>;height:<?php echo $maxHeight + (2 * $emValue) . "px" ?>">
+        <div class="<?php echo "MaxHeight_" . $maxHeight ?>" style="background-color: #008200;display:inline-block;height:<?php echo $maxHeight . "px" ?>;width:<?php echo $width . "px" ?>">
+            <img alt="" class="Imgcenter" src="<?php echo $url ?>" width="<?php echo $width . 'px' ?>" height="<?php echo $height . 'px' ?>"/>
+        </div>
+        <div class="imageContent">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        </div>
     </div>
-    <?php }
-    ?>
+<?php } ?>
