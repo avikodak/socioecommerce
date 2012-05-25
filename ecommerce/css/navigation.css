@@ -1,12 +1,40 @@
-/* 
-    Document   : navigation
-    Created on : May 15, 2012, 10:24:28 AM
-    Author     : kodakand
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-root { 
-    display: block;
+.navigation{
+    display: inline-block;
 }
+.navigation > ul{
+    list-style-type: none;
+    display: inline-block;
+    width: auto;
+    background: #ffffff;
+}
+.navigation > ul > li.fb{
+    width:10em;
+}
+.navigation > ul > li{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 8em;
+    height: 3em ;
+    background-color: #2b2b2b;
+    color:#bfbfbf;
+    border: #000000 solid thin;
+    font: menu;
+
+}
+.navigation > ul > li> a:link{
+    color: #bfbfbf;
+}
+.navigation > ul > li> a:visited{
+    color: #bfbfbf;
+}
+
+.navigation > ul > li> a:hover{
+    color: white;
+}
+.navigation > ul > li> a:active{
+    color: #ffffff;
+    font-size: larger;
+}
+
 

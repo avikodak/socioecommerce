@@ -8,8 +8,18 @@ global $FB_COMMON_FUNCTION;$FB_COMMON_FUNCTION="./php/FbFunctions.php";
 global $FBINTERESTS_Class;$FBINTERESTS_Class="../php/FBInterests_Class.php";
 global $FB_BASE_CLASS;$FB_BASE_CLASS="../php/FBBaseClass_Class.php";
 /* Site Urls and Includes*/
-global $HOME_PAGE_URL;$HOME_PAGE_URL="http://localhost:8888/ecommerce/src/homeV3.php";
+global $HOME_PAGE_URL;$HOME_PAGE_URL="http://localhost:8888/ecommerce/src/homeV5.php";
 global $LOGIN_PAGE_NO_USER_URL;$LOGIN_PAGE_NO_USER_URL="http://localhost:8888/ecommerce/src/loginV4Test.php";
 global $LOGIN_PAGE_NO_SESSION_URL;$LOGIN_PAGE_NO_SESSION_URL="http://localhost:8888/ecommerce/src/loginV4Test.php";
+
+
+
+/* Stylish Sheets and php common files path for src folder*/
+
+
+/* Stylish Sheets and php common files path for php folder*/
+
+/* Stylish Sheets and php common files path for scripts folder*/
+
 
 ?>

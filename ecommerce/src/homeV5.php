@@ -56,6 +56,7 @@ try {
         <title>SocioEcommerce</title>
         <link type="text/css" href="../css/common.css" rel="Stylesheet" />
         <link type="text/css" href="../css/test.css" rel="Stylesheet" />
+        <link type="text/css" href="../css/navigation.css" rel="Stylesheet" />
         <link type="text/css" href="../scripts/jquery-ui-1.8.17.custom/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="Stylesheet" />
         <script type="text/javascript" src="../scripts/jquery-ui-1.8.17.custom/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="../scripts/jquery-ui-1.8.17.custom/js/jquery-ui-1.8.17.custom.min.js"></script>
@@ -64,7 +65,7 @@ try {
     </head>
     <body>
         <?php
-        // include "includes/header.php";
+        include "includes/header.php";
         include_once '../php/homePagePhp.php';
         ?>
         <div class="container">
@@ -73,29 +74,13 @@ try {
                 <div class="mainContent" style="position:relative">
                     <?php
 
-                    function getAllFileNamesInDir() {
-                        $fileNames = array();
-                        if ($handle = opendir('/Applications/MAMP/htdocs/ecommerce/src/testImages')) {
-                            /* This is the correct way to loop over the directory. */
-                            while (false !== ($entry = readdir($handle))) {
-                                if (strpos($entry, ".php") || $entry=="thumbnails"||  is_dir($entry)) {
-                                    continue;
-                                }
-                                if ($entry != ".DS_Store" && $entry != "." && $entry != "..") {
-                                    $fileNames[] = "testImages/" . $entry;
-                                }
-                            }
-                            closedir($handle);
-                        }
-                        return $fileNames;
-                    }
-
-                    $arrayImages = getAllFileNamesInDir();
+             
+                    $arrayImages = getAllFileNamesInDir('/Applications/MAMP/htdocs/ecommerce/src/images/t2_100','images/t2_100',50);
 
                     $arrayImageWithInfo = array();
 
                     $arrayImageWithInfo = getImagesInfo($arrayImages);
-
+                    
                     //Test ImagesInRow
                     //$arrayImageWithInfo = sortArray($arrayImageWithInfo);
 
@@ -104,17 +89,15 @@ try {
                     $rowCount = 2;
 
                     $maxWidth = 730;
-
-                    //print_r($arrayImageWithInfo);
-
-                   getImagesDivForPartner($arrayImageWithInfo, 0, $rowCount, $maxWidth);
+                    getImagesDivForPartner($arrayImageWithInfo, 0, $rowCount, $maxWidth);
                     ?>
                 </div>
             </div>
+            
 <?php
 include "includes/footer.php";
 ?>
         </div>
-
+        
     </body>
 </html>
