@@ -75,7 +75,7 @@ try {
                     <?php
 
              
-                    $arrayImages = getAllFileNamesInDir('/Applications/MAMP/htdocs/ecommerce/src/images/t2_100','images/t2_100',50);
+                    $arrayImages = getAllFileNamesInDir('/Applications/MAMP/htdocs/ecommerce/src/images/t3_200','images/t3_200',200);
 
                     $arrayImageWithInfo = array();
 
@@ -89,6 +89,7 @@ try {
                     $rowCount = 2;
 
                     $maxWidth = 730;
+                    
                     getImagesDivForPartner($arrayImageWithInfo, 0, $rowCount, $maxWidth);
                     ?>
                 </div>

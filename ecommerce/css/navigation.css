@@ -1,11 +1,13 @@
 .navigation{
     display: inline-block;
+    
 }
 .navigation > ul{
     list-style-type: none;
     display: inline-block;
     width: auto;
     background: #ffffff;
+    padding-left: 0px;
 }
 .navigation > ul > li.fb{
     width:10em;
