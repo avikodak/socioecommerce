@@ -1,19 +1,39 @@
+.subnavDiv{
+    width: auto;
+    visibility: hidden;
+    
+}
+.subnavDiv > ul.subnav > li {
+    border: none;  
+    text-align:left;
+    background-color: #2b2b2b;
+    color:#bfbfbf;
+    height: 3em ;
+}
+.subnavDiv > .subnav{
+    background-color: #ffffff;
+    position: relative;
+    top: 22px;
+    list-style: none;
+    padding-left: 0;
+    list-style: none;
+}
+
 .navigation{
     display: inline-block;
     
 }
-.navigation > ul{
+.navigation > ul.topnav{
     list-style-type: none;
     display: inline-block;
     width: auto;
-    background: #ffffff;
     padding-left: 0px;
 }
-.navigation > ul > li.fb{
+.navigation > ul.topnav  li.fb{
     width:10em;
 }
-.navigation > ul > li{
-    display: table-cell;
+.navigation > ul.topnav > li{
+    display: inline-block;
     vertical-align: middle;
     text-align: center;
     width: 8em;
@@ -24,19 +44,38 @@
     font: menu;
 
 }
-.navigation > ul > li> a:link{
+.subnavDiv > ul.subnav > li> a:link{
     color: #bfbfbf;
 }
-.navigation > ul > li> a:visited{
+.subnavDiv > ul.subnav > li >  a:visited{
     color: #bfbfbf;
 }
 
-.navigation > ul > li> a:hover{
+.subnavDiv > ul.subnav > li> a:hover{
     color: white;
 }
-.navigation > ul > li> a:active{
+.subnavDiv > ul.subnav > li > a:active{
     color: #ffffff;
     font-size: larger;
 }
+
+.navigation > ul.topnav > li> a:link{
+    color: #bfbfbf;
+}
+.navigation > ul.topnav > li >  a:visited{
+    color: #bfbfbf;
+}
+
+.navigation > ul.topnav > li> a:hover{
+    color: white;
+}
+.navigation > ul.topnav > li > a:active{
+    color: #ffffff;
+    font-size: larger;
+}
+
+
+
+
 
 

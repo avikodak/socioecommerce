@@ -24,8 +24,11 @@ $(document).ready(function(){
    
     
     $(".mainContent").on("click",".image", function() {
-       alert("clicked");
+       alert($(this).height());
+       
     });
+    
+   
     
 });
 

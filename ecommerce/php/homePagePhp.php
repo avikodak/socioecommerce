@@ -64,7 +64,7 @@ function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $max
     $width = 0;
     $emValue = 16;
     $maxHeight = 0;
-   
+
     for ($i = $marker; $i < count($arrayImageWithInfo); $i++) {
         if (!strcasecmp($arrayImageWithInfo[$i]["displayed"], "no")) {
             if ($width + $arrayImageWithInfo[$i]["width"] + $emValue >= $maxWidth) {
@@ -74,9 +74,9 @@ function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $max
                 $CountHeight[] = array("arrayImageWithInfo" => $arrayImageWithInfo, "count" => $count, "maxHeight" => $maxHeight, "totalWidth" => $width, "imagesInfo" => $imagesInfo);
                 return $CountHeight;
             }
-            $imagesInfo[]=array("url"=>$arrayImageWithInfo[$i]["url"],"width"=>$arrayImageWithInfo[$i]["width"],"height"=>$arrayImageWithInfo[$i]["height"]);
-            
-            $arrayImageWithInfo[$i]["displayed"]="yes";
+            $imagesInfo[] = array("url" => $arrayImageWithInfo[$i]["url"], "width" => $arrayImageWithInfo[$i]["width"], "height" => $arrayImageWithInfo[$i]["height"]);
+
+            $arrayImageWithInfo[$i]["displayed"] = "yes";
             $arrayImageWithInfo[$i]["displayed"] = "yes";
             $width = $width + $arrayImageWithInfo[$i]["width"] + $emValue;
             if ($maxHeight < $arrayImageWithInfo[$i]["height"]) {
@@ -84,7 +84,7 @@ function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $max
             }
 
             $count++;
-            if ($i - $marker >= $maxImagesInRow) {
+            if ($i - $marker > $maxImagesInRow) {
                 $CountHeight[] = array("arrayImageWithInfo" => $arrayImageWithInfo, "count" => $count, "maxHeight" => $maxHeight, "totalWidth" => $width, "imagesInfo" => $imagesInfo);
                 return $CountHeight;
             }
@@ -95,9 +95,9 @@ function getImageCountInARow($arrayImageWithInfo, $maxImagesInRow, $marker, $max
 }
 
 function getNextDisplayNoMarker($arrayImageWithInfo, $i) {
-    
+
     for ($j = $i; $j < count($arrayImageWithInfo); $j++) {
-       
+
         if (!strcasecmp($arrayImageWithInfo[$j]["displayed"], "no")) {
             return $j;
         }
@@ -107,16 +107,16 @@ function getNextDisplayNoMarker($arrayImageWithInfo, $i) {
 
 function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $maxWidth) {
 
-   
+
     echo '<div class=partner>';
     $totalImages = 0;
     $maxImagesInRow = 2;
     $emValue = 16;
-    
+
     for ($i = $startCount; $i < count($arrayImageWithInfo) && $i != -1;) {
         //echo "I value " . $i . "<br/>";
         $RowCountAndMaxHeightArray = getImageCountInARow($arrayImageWithInfo, 3, $i, $maxWidth);
-        
+
         $arrayImageWithInfo = $RowCountAndMaxHeightArray[0][arrayImageWithInfo];
         $rowCount = $RowCountAndMaxHeightArray[0]["count"];
         $totalImages+=$rowCount;
@@ -127,12 +127,12 @@ function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $ma
         $maxHeight = $RowCountAndMaxHeightArray[0]["maxHeight"];
         $totalWidth = $RowCountAndMaxHeightArray[0]["totalWidth"];
         $imagesInfo = $RowCountAndMaxHeightArray[0]["imagesInfo"];
-        
+
         echo '<div class="imageRow">';
         echo '<div class="centerImages" style="width:' . $totalWidth . 'px">';
         for ($j = 0; $j < $rowCount; $j++) {
             //$width = ($maxWidth - (($rowCount*$emValue)/$rowCount));
-            
+
             $imageUrl = $imagesInfo[$j]["url"];
             $imageHeight = $imagesInfo[$j]["height"];
             $height = $maxHeight;
@@ -145,28 +145,29 @@ function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $ma
         }
         echo '</div>';
         echo '</div>';
-        
+
         $i = getNextDisplayNoMarker($arrayImageWithInfo, $i + 1);
-        
-        
-        
-        
     }
     echo '</div>';
     echo "<br/>Total Images Displayed" . $totalImages;
-    
-   
 }
 ?>
 <?php
 
 function createDivForImage($width, $height, $maxHeight, $emValue, $url) { ?>
     <div class="image" style="width:<?php echo $width . "px" ?>;height:<?php echo $maxHeight + (2 * $emValue) . "px" ?>">
-        <div class="<?php echo "MaxHeight_" . $maxHeight ?>" style="background-color: #008200;display:inline-block;height:<?php echo $maxHeight . "px" ?>;width:<?php echo $width . "px" ?>">
+        <div class="imageInfo imageModalBox" style="width:<?php echo $width . "px" ?>;height:<?php echo $maxHeight + (2 * $emValue) . "px" ?>" >
+            <input type="hidden" name="uploadedBy" value="test"/>
+            
+            
+        </div>
+        <div class="<?php echo "MaxHeight_" . $maxHeight ?>" style="z-index:-1;background-color: #008200;display:inline-block;height:<?php echo $maxHeight . "px" ?>;width:<?php echo $width . "px" ?>">
             <img alt="../src/BouncingLoader.gif" class="Imgcenter" src="<?php echo $url ?>" width="<?php echo $width . 'px' ?>" height="<?php echo $height . 'px' ?>"/>
         </div>
         <div class="imageContent">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
         </div>
+       <div class="getInfoForPic" style="left:<? echo ($width-(2 * $emValue))/2 ."px"?>;top:<?php echo ($maxHeight-(2 * $emValue))/2 ."px" ?>">GetInfo</div>
     </div>
+
 <?php } ?>

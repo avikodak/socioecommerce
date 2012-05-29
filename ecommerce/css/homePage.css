@@ -7,9 +7,23 @@
 */
 
 
-.partner{
- position: relative;  
+.imageModalBox{
+   position:absolute;
+   top:0;
+   opacity:0.3;
+   background-color: #000;
+}
+.getInfoForPic
+{
  
+    width: 4em;
+    height:4em;
+    background-color: #500;
+   
+}
+.partner{
+    position: relative;  
+
 }
 .image{
     position:relative;
@@ -17,7 +31,7 @@
     max-height: 400px;
     max-width: 200px;
     padding: 1em 1em 1em 1em;
-    
+
 }
 .imageContent{
     display: inline-block;
@@ -44,7 +58,7 @@
     margin:auto;
     padding: 0.5em;
     width: 8em;
-    
+
 }
 
 .fontColorWhite{
@@ -68,7 +82,7 @@
     height:auto;
     position:relative;
     top:5em;
-    
+
 }
 #space{
     margin-bottom: 1em;
@@ -87,3 +101,4 @@
 
 
 .Imgcenter {   display: block;   margin-left:auto; margin-right:auto;    vertical-align: middle }
+
