@@ -428,10 +428,6 @@ class FbPerson extends FBBaseClass{
     }
     
     
-    
-    
-    
-    
 }
 
 ?>

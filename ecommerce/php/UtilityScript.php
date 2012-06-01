@@ -40,5 +40,5 @@ function MoveFilesLessThanTheGivenSize($widthSize) {
     return $fileNames;
 }
 
-MoveFilesLessThanTheGivenSize(100);
+MoveFilesLessThanTheGivenSize(199);
 ?>

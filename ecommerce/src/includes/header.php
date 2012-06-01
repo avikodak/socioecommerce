@@ -5,10 +5,10 @@
         
         <style>
             #header{
-                background: url("../images/drock042.jpeg");
+                background-color: #000000;
                 margin: 0 auto;
                 margin-bottom: 1em;
-                height: 4em;
+                height: 44px;
                 position: fixed;
                 width:100%;
                 z-index: 10;

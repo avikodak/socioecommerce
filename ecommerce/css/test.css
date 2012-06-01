@@ -7,10 +7,11 @@
 */
 
 .imageModalBox{
-   position:absolute;
-   top:0;
-   background-color:#ddc0c0;
-   opacity:0.3;
+    position:absolute;
+    top:0;
+    background-color:#ddc0c0;
+    opacity:0.3;
+    display: none;
 }
 .getInfoForPic
 {
@@ -20,27 +21,29 @@
     background-color:#000;
     z-index: 2;
     color: white;
-    
+    display: none;
+    cursor: pointer;
 }
 .partner{
- position: relative;  
- margin: 0 auto;
+    position: relative;  
+    margin: 0 auto;
 }
 .centerImages{
-    
- margin: 0 auto;   
+
+    margin: 0 auto;   
 }
 
 .image{
     position:relative;
     float:left;
     padding: 1em 0em 1em 1em;
-    
+
 }
 .imageContent{
     display: inline-block;
     height: 2em;
     max-width: 200px;
+ 
 }
 .parnterDP{
     display: inline-block;
@@ -62,7 +65,7 @@
     margin:auto;
     padding: 0.5em;
     width: 8em;
-    
+
 }
 
 .fontColorWhite{
@@ -102,7 +105,7 @@
 .imageRow{
     padding: 1em 1em 1em 1em;
     display: inline-block;
-   
+
     width: 700px; /* Width - paddingLeft-paddingright*/
 }
 

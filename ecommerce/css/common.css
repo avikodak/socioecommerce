@@ -6,8 +6,7 @@
         Purpose of the stylesheet follows.
 */
 body{
-    background: url("../images/beige001.jpeg");
-    background-repeat: repeat;
+   background-color: #F5F4F0;
 }
 
 .rfloat{

@@ -108,7 +108,7 @@ function getNextDisplayNoMarker($arrayImageWithInfo, $i) {
 function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $maxWidth) {
 
 
-    echo '<div class=partner>';
+    echo '<div class="partner">';
     $totalImages = 0;
     $maxImagesInRow = 2;
     $emValue = 16;
@@ -117,7 +117,7 @@ function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $ma
         //echo "I value " . $i . "<br/>";
         $RowCountAndMaxHeightArray = getImageCountInARow($arrayImageWithInfo, 3, $i, $maxWidth);
 
-        $arrayImageWithInfo = $RowCountAndMaxHeightArray[0][arrayImageWithInfo];
+        $arrayImageWithInfo = $RowCountAndMaxHeightArray[0]["arrayImageWithInfo"];
         $rowCount = $RowCountAndMaxHeightArray[0]["count"];
         $totalImages+=$rowCount;
         if ($rowCount == 0) {
@@ -149,7 +149,7 @@ function getImagesDivForPartner($arrayImageWithInfo, $startCount, $rowCount, $ma
         $i = getNextDisplayNoMarker($arrayImageWithInfo, $i + 1);
     }
     echo '</div>';
-    echo "<br/>Total Images Displayed" . $totalImages;
+  //  echo "<br/>Total Images Displayed" . $totalImages;
 }
 ?>
 <?php
@@ -161,13 +161,14 @@ function createDivForImage($width, $height, $maxHeight, $emValue, $url) { ?>
             
             
         </div>
-        <div class="<?php echo "MaxHeight_" . $maxHeight ?>" style="z-index:-1;background-color: #008200;display:inline-block;height:<?php echo $maxHeight . "px" ?>;width:<?php echo $width . "px" ?>">
-            <img alt="../src/BouncingLoader.gif" class="Imgcenter" src="<?php echo $url ?>" width="<?php echo $width . 'px' ?>" height="<?php echo $height . 'px' ?>"/>
+        <div class="imageSelector <?php echo "MaxHeight_" . $maxHeight ?>" style="z-index:-1;background-color: #FFFFFF;display:inline-block;height:<?php echo $maxHeight . "px" ?>;width:<?php echo $width . "px" ?>">
+            <img alt="../src/BouncingLoader.gif" class="Imgcenter roundedBorderImage" src="<?php echo $url ?>" width="<?php echo $width . 'px' ?>" height="<?php echo $height . 'px' ?>"/>
         </div>
-        <div class="imageContent">
+     <!--   <div class="imageContent" style="width:<?php //$width ."px"?>"> -->
+        <div class="imageContent" >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
         </div>
-       <div class="getInfoForPic" style="left:<? echo ($width-(2 * $emValue))/2 ."px"?>;top:<?php echo ($maxHeight-(2 * $emValue))/2 ."px" ?>">GetInfo</div>
+       <div class="getInfoForPic thoughtbot" style="left:<? echo ($width-(2 * $emValue))/2 ."px"?>;top:<?php echo ($maxHeight-(2 * $emValue))/2 ."px" ?>">GetInfo</div>
     </div>
 
 <?php } ?>
